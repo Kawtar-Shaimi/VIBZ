@@ -1,59 +1,128 @@
-# VIBZ
+# MusicStream (VIBZ)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.19.
+![CI/CD Pipeline](https://github.com/Kawtar-Shaimi/VIBZ/workflows/CI/CD%20Pipeline/badge.svg)
+![Code Quality](https://github.com/Kawtar-Shaimi/VIBZ/workflows/Code%20Quality%20Check/badge.svg)
 
-## Development server
+## 🎵 À propos
 
-To start a local development server, run:
+**MusicStream** est une application web de gestion et lecture de musique locale développée avec Angular 19. Elle permet aux utilisateurs d'organiser, rechercher et écouter leur collection musicale locale avec une interface moderne et intuitive.
+
+## ✨ Fonctionnalités
+
+- 🎧 **Lecteur Audio Complet** : Play, pause, next, previous, contrôle du volume
+- 📁 **Gestion CRUD des Tracks** : Créer, lire, modifier, supprimer des chansons
+- 🔍 **Recherche et Filtres** : Recherche par nom et filtrage par catégorie musicale
+- 💾 **Stockage Local** : Persistance des fichiers audio avec IndexedDB
+- 🎨 **UI Moderne** : Interface responsive avec Tailwind CSS
+- 🖼️ **Couvertures d'Album** : Support des images de couverture (PNG, JPEG)
+- ✅ **Validation** : Validation des formats et tailles de fichiers
+
+## 🛠️ Technologies
+
+- **Framework** : Angular 19
+- **Langage** : TypeScript
+- **Styling** : Tailwind CSS
+- **Gestion d'État** : RxJS / Angular Signals
+- **Stockage** : IndexedDB (via Dexie.js)
+- **Tests** : Jasmine + Karma
+- **CI/CD** : GitHub Actions
+
+## 📋 Prérequis
+
+- Node.js >= 20.x
+- npm >= 10.x
+- Angular CLI 19.x
+
+## 🚀 Installation
 
 ```bash
+# Cloner le repository
+git clone https://github.com/Kawtar-Shaimi/VIBZ.git
+cd VIBZ
+
+# Installer les dépendances
+npm install
+
+# Lancer le serveur de développement
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+L'application sera accessible sur `http://localhost:4200/`
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 📦 Build
 
 ```bash
-ng generate component component-name
+# Build de production
+npm run build
+
+# Les fichiers de build seront dans dist/vibz/
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 🧪 Tests
 
 ```bash
-ng generate --help
+# Tests unitaires
+npm run test
+
+# Tests avec couverture de code
+npm run test -- --code-coverage
+
+# Tests en mode headless (CI)
+npm run test -- --watch=false --browsers=ChromeHeadless
 ```
 
-## Building
+## 📁 Structure du Projet
 
-To build the project run:
-
-```bash
-ng build
+```
+src/app/
+├── core/
+│   ├── models/         # Interfaces et Enums
+│   ├── services/       # Services (Storage, Track, AudioPlayer)
+│   └── guards/         # Route Guards
+├── features/
+│   ├── library/        # Page bibliothèque musicale
+│   ├── track-detail/   # Page détail d'un track
+│   └── upload/         # Page d'upload de musique
+├── shared/
+│   ├── components/     # Composants réutilisables
+│   └── pipes/          # Pipes personnalisés
+└── app.routes.ts       # Configuration du routing
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 🎯 Concepts Angular Utilisés
 
-## Running unit tests
+- ✅ Standalone Components
+- ✅ Lazy Loading
+- ✅ Reactive Forms
+- ✅ Dependency Injection
+- ✅ RxJS Observables & Signals
+- ✅ Custom Pipes
+- ✅ Route Guards
+- ✅ Services avec BehaviorSubject
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## 🔒 Contraintes
 
-```bash
-ng test
-```
+- Formats audio supportés : MP3, WAV, OGG
+- Taille maximale par fichier : 10MB
+- Formats d'image : PNG, JPEG
+- Limite de caractères : Titre (50), Description (200)
 
-## Running end-to-end tests
+## 👤 Auteur
 
-For end-to-end (e2e) testing, run:
+**Kawtar Shaimi**
 
-```bash
-ng e2e
-```
+- GitHub: [@Kawtar-Shaimi](https://github.com/Kawtar-Shaimi)
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 📅 Projet Académique
 
-## Additional Resources
+- **Durée** : 10 jours (05/01/2026 - 16/01/2026)
+- **Type** : Projet individuel
+- **Technologies imposées** : Angular 17+, RxJS/Signals, IndexedDB
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 📄 Licence
+
+Ce projet est développé dans un cadre académique.
+
+---
+
+⭐ Si vous aimez ce projet, n'hésitez pas à lui donner une étoile sur GitHub !
