@@ -2,9 +2,9 @@ name: Angular CI with SonarQube
 
 on:
   push:
-    branches: [ master, dev, main ]
+    branches: [ master]
   pull_request:
-    branches: [ master, main ]
+    branches: [ master]
     types: [ opened, synchronize, reopened ]
 
 jobs:
