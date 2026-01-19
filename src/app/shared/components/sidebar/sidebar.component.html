@@ -1,0 +1,63 @@
+<aside class="sidebar">
+    <!-- Logo et titre -->
+    <div class="sidebar-header">
+        <div class="logo">
+            <span class="logo-text">VIBZ</span>
+        </div>
+    </div>
+
+    <!-- Navigation principale -->
+    <nav class="sidebar-nav">
+        <a *ngFor="let item of navItems" [routerLink]="item.route" routerLinkActive="active" class="nav-item">
+            <span class="nav-icon" [attr.data-icon]="item.icon">
+                <ng-container [ngSwitch]="item.icon">
+                    <svg *ngSwitchCase="'home'" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <svg *ngSwitchCase="'search'" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    <svg *ngSwitchCase="'list'" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <line x1="8" y1="6" x2="21" y2="6"></line>
+                        <line x1="8" y1="12" x2="21" y2="12"></line>
+                        <line x1="8" y1="18" x2="21" y2="18"></line>
+                        <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                        <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                        <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                    </svg>
+                    <svg *ngSwitchCase="'heart'" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                        </path>
+                    </svg>
+                </ng-container>
+            </span>
+            <span class="nav-label">{{ item.label }}</span>
+        </a>
+    </nav>
+
+    <!-- Section Catégories -->
+    <div class="playlists-section" *ngIf="categories.length > 0">
+        <h3 class="section-title">CATÉGORIES</h3>
+        <div class="playlist-list">
+            <!-- Option "Tous" pour réinitialiser -->
+            <div class="playlist-item" (click)="resetFilter()" [class.active]="!activeCategory">
+                <div class="playlist-color" style="background-color: #64748B"></div>
+                <span class="playlist-name">Toutes les pistes</span>
+            </div>
+
+            <!-- Liste des catégories -->
+            <div *ngFor="let category of categories" class="playlist-item" (click)="filterByCategory(category)"
+                [class.active]="activeCategory === category">
+                <div class="playlist-color" [style.background-color]="getCategoryColor(category)"></div>
+                <span class="playlist-name">{{ category }}</span>
+            </div>
+        </div>
+    </div>
+</aside>
