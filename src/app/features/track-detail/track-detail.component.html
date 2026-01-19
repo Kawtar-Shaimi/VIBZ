@@ -1,0 +1,138 @@
+<div class="track-detail-container" *ngIf="!isLoading && track">
+    <!-- Header -->
+    <header class="detail-header">
+        <div></div> <!-- Pour garder l'avatar à droite si besoin -->
+
+
+        <!-- Avatar de profil au bout à droite -->
+        <button class="user-avatar">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+        </button>
+    </header>
+
+    <!-- Track content -->
+    <div class="track-content">
+        <!-- Cover and main info -->
+        <div class="track-hero">
+            <div class="track-cover-large">
+                <!-- Image de l'artiste si disponible, sinon gradient -->
+                <div class="cover-gradient" *ngIf="!track.artistImage"
+                    [style.background]="'linear-gradient(135deg, ' + getCategoryColor(track.category) + ' 0%, #0A0E27 100%)'">
+                    <svg class="cover-icon-large" width="120" height="120" viewBox="0 0 24 24" fill="none"
+                        stroke="white" stroke-width="1">
+                        <path d="M9 18V5l12-2v13"></path>
+                        <circle cx="6" cy="18" r="3"></circle>
+                        <circle cx="18" cy="16" r="3"></circle>
+                    </svg>
+                </div>
+
+                <!-- Photo de l'artiste -->
+                <img *ngIf="track.artistImage" [src]="track.artistImage" [alt]="track.artist"
+                    class="artist-image-large" />
+            </div>
+
+            <div class="track-main-info">
+                <span class="track-type">PISTE MUSICALE</span>
+                <h1 class="track-title-large">{{ track.name }}</h1>
+                <div class="track-metadata">
+                    <span class="track-artist-large">{{ track.artist }}</span>
+                    <span class="separator">•</span>
+                    <span [style.color]="getCategoryColor(track.category)">{{ track.category }}</span>
+                    <span class="separator">•</span>
+                    <span>{{ formatDuration(track.duration) }}</span>
+                    <span class="separator">•</span>
+                    <span>{{ track.playCount || 0 }} écoute(s)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="action-buttons">
+            <button class="btn-play-large" (click)="playTrack()">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+                    <path d="M8 5v14l11-7z" />
+                </svg>
+                <span>Lire</span>
+            </button>
+            <button class="btn-action" (click)="editTrack()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+                <span>Modifier</span>
+            </button>
+            <button class="btn-action btn-delete" (click)="confirmDelete()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+                <span>Supprimer</span>
+            </button>
+        </div>
+
+        <!-- Details section -->
+        <div class="track-details">
+            <div class="details-section">
+                <h2 class="section-title">Informations</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Artiste</span>
+                        <span class="info-value">{{ track.artist }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Catégorie</span>
+                        <span class="info-value" [style.color]="getCategoryColor(track.category)">{{ track.category
+                            }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Durée</span>
+                        <span class="info-value">{{ formatDuration(track.duration) }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date d'ajout</span>
+                        <span class="info-value">{{ formatDate(track.dateAdded) }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Nombre d'écoutes</span>
+                        <span class="info-value">{{ track.playCount || 0 }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="details-section" *ngIf="track.description">
+                <h2 class="section-title">Description</h2>
+                <p class="track-description">{{ track.description }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loading state -->
+<div class="loading-container" *ngIf="isLoading">
+    <div class="loading-spinner"></div>
+    <p>Chargement...</p>
+</div>
+
+<!-- Delete confirmation modal -->
+<div class="modal-overlay" *ngIf="showDeleteConfirm" (click)="cancelDelete()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="15" y1="9" x2="9" y2="15"></line>
+                <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>
+        </div>
+        <h3 class="modal-title">Supprimer cette piste ?</h3>
+        <p class="modal-text">Cette action est irréversible. La piste sera définitivement supprimée de votre
+            bibliothèque.</p>
+        <div class="modal-actions">
+            <button class="btn btn-secondary" (click)="cancelDelete()">Annuler</button>
+            <button class="btn btn-danger" (click)="deleteTrack()">Supprimer</button>
+        </div>
+    </div>
+</div>
