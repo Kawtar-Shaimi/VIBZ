@@ -1,0 +1,112 @@
+<div class="library-container">
+    <!-- Header -->
+    <header class="library-header">
+        <div class="header-content">
+
+
+            <!-- Search bar -->
+            <div class="search-container">
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input type="text" class="search-input" placeholder="Rechercher des titres, artistes..."
+                    [(ngModel)]="searchTerm" (input)="onSearch()" />
+            </div>
+
+            <button class="user-avatar">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="library-main">
+        <!-- Title and action button -->
+        <div class="section-header">
+            <div>
+                <h1 class="page-title">{{ selectedCategory ? (selectedCategory | uppercase) : 'MA BIBLIOTHÈQUE' }}</h1>
+                <p class="page-subtitle">{{ selectedCategory ? 'Découvrez les titres de la catégorie ' +
+                    selectedCategory : 'Découvrez votre collection musicale' }}</p>
+            </div>
+            <button class="add-track-btn" (click)="goToUpload()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                <span>Ajouter une piste</span>
+            </button>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters">
+            <button *ngFor="let filter of filters" class="filter-btn" [class.active]="activeFilter === filter.id"
+                (click)="setFilter(filter.id)">
+                {{ filter.label }}
+            </button>
+        </div>
+
+        <!-- Tracks grid -->
+        <div class="tracks-grid" *ngIf="filteredTracks.length > 0">
+            <div *ngFor="let track of filteredTracks" class="track-card" (click)="viewTrackDetails(track.id)">
+                <div class="track-cover">
+                    <!-- Image de l'artiste si disponible, sinon gradient -->
+                    <div class="cover-gradient" *ngIf="!track.artistImage"
+                        [style.background]="'linear-gradient(135deg, ' + getCategoryColor(track.category) + ' 0%, #0A0E27 100%)'">
+                        <svg class="cover-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white"
+                            stroke-width="1.5">
+                            <path d="M9 18V5l12-2v13"></path>
+                            <circle cx="6" cy="18" r="3"></circle>
+                            <circle cx="18" cy="16" r="3"></circle>
+                        </svg>
+                    </div>
+
+                    <!-- Photo de l'artiste -->
+                    <img *ngIf="track.artistImage" [src]="track.artistImage" [alt]="track.artist"
+                        class="artist-image" />
+
+                    <!-- Play button overlay -->
+                    <button class="play-overlay" (click)="playTrack(track); $event.stopPropagation()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                            <path d="M8 5v14l11-7z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="track-info">
+                    <h3 class="track-title">{{ track.name }}</h3>
+                    <p class="track-artist">{{ track.artist }}</p>
+                    <div class="track-meta">
+                        <span class="track-category" [style.color]="getCategoryColor(track.category)">
+                            {{ track.category }}
+                        </span>
+                        <span class="track-duration">{{ formatDuration(track.duration) }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty state -->
+        <div class="empty-state" *ngIf="filteredTracks.length === 0">
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                <path d="M9 18V5l12-2v13"></path>
+                <circle cx="6" cy="18" r="3"></circle>
+                <circle cx="18" cy="16" r="3"></circle>
+            </svg>
+            <h3>Aucune piste trouvée</h3>
+            <p *ngIf="tracks.length === 0">Commencez par ajouter des pistes à votre bibliothèque</p>
+            <p *ngIf="tracks.length > 0 && searchTerm">Aucun résultat pour "{{ searchTerm }}"</p>
+            <button class="add-track-btn" (click)="goToUpload()" *ngIf="tracks.length === 0">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                <span>Ajouter une piste</span>
+            </button>
+        </div>
+    </main>
+</div>
