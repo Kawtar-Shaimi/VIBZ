@@ -1,0 +1,189 @@
+/* Sidebar container */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #0A0E27;
+    padding: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow-y: auto;
+}
+
+/* Scrollbar styling */
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(20, 184, 166, 0.3);
+    border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(20, 184, 166, 0.5);
+}
+
+/* Header */
+.sidebar-header {
+    padding: 0 1.5rem 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-text {
+    font-size: 1.75rem;
+    /* Augmenté pour un effet logo */
+    font-weight: 800;
+    letter-spacing: 2px;
+    /* Espacement pour le style */
+    background: linear-gradient(135deg, #14B8A6 0%, #0891B2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-transform: uppercase;
+}
+
+/* Navigation */
+.sidebar-nav {
+    padding: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.875rem 1.5rem;
+    color: #94A3B8;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.nav-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, #14B8A6 0%, #0891B2 100%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.nav-item:hover {
+    color: #E2E8F0;
+    background-color: rgba(20, 184, 166, 0.05);
+}
+
+.nav-item.active {
+    color: #14B8A6;
+    background-color: rgba(20, 184, 166, 0.1);
+}
+
+.nav-item.active::before {
+    opacity: 1;
+}
+
+.nav-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Playlists section */
+.playlists-section {
+    margin-top: 2rem;
+    padding: 0 1.5rem;
+}
+
+.section-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #64748B;
+    margin-bottom: 1rem;
+}
+
+.playlist-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.playlist-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.playlist-item:hover .playlist-name,
+.playlist-item.active .playlist-name {
+    color: #E2E8F0;
+}
+
+.playlist-item.active {
+    background-color: rgba(20, 184, 166, 0.05);
+    margin: 0 -1.5rem;
+    padding: 0.5rem 1.5rem;
+}
+
+.playlist-item.active .playlist-color {
+    transform: scale(1.2);
+    box-shadow: 0 0 8px rgba(20, 184, 166, 0.4);
+}
+
+.playlist-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+.playlist-name {
+    font-size: 0.875rem;
+    color: #94A3B8;
+    transition: color 0.2s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+
+    .logo-text {
+        font-size: 1rem;
+    }
+
+    .nav-item {
+        padding: 0.75rem 1rem;
+        font-size: 0.875rem;
+    }
+}
