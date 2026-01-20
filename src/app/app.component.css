@@ -1,0 +1,27 @@
+/* Layout principal de l'application */
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+    background: #0A0E27;
+}
+
+/* Contenu principal (à droite de la sidebar) */
+.main-content {
+    flex: 1;
+    margin-left: 250px;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .main-content {
+        margin-left: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+    }
+}
