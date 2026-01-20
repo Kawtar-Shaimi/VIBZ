@@ -1,4 +1,4 @@
-# MusicStream 🎵
+# VIBZ 🎵
 
 Une application de gestion et lecture de musique locale construite avec Angular 19+. MusicStream permet aux utilisateurs d'uploader, d'organiser et d'écouter leurs fichiers audio locaux avec une interface moderne et intuitive.
 
@@ -349,6 +349,3 @@ Pour toute question ou problème :
 
 ---
 
-**Note** : Cette application stocke les fichiers audio uniquement dans votre navigateur (IndexedDB). Les données ne sont pas synchronisées entre appareils et seront perdues si vous effacez les données du navigateur.
-
-**Bon coding ! 🚀**
