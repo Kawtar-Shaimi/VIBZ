@@ -14,5 +14,5 @@ import { AudioPlayerBarComponent } from './shared/components/audio-player-bar/au
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'MusicStream';
+  title = 'VIBZ';
 }
